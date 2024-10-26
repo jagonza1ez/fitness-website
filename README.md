@@ -1,10 +1,11 @@
 # Fitness Tracker Web Application
 
 **Team Members**: Jesus Gonzalez, Matthew Goodman, Bill Tchiengue , Ty
+
 **Course**: UMGC CMSC 495 Section 7381  
 
 ## Overview
-The Fitness Tracker Web Application is a MERN-based platform that helps users track their workouts, calorie intake, and overall fitness progress. With personalized fitness stats, users can engage in friendly competition, follow structured workout plans, and maintain a healthy lifestyle through a supportive community.
+The Fitness Web Application is a MERN-based platform that helps users track their workouts, calorie intake, and overall fitness progress. With personalized fitness stats, users can engage in friendly competition, follow structured workout plans, and maintain a healthy lifestyle through a supportive community.
 
 ## Features
 - **User Authentication**: Secure account creation, login, and logout functionality.
@@ -29,26 +30,8 @@ The app will be web-based and accessible on both desktop and mobile devices. Key
 - **Functional**: User registration, workout logging, friend system, leaderboard, and profile management.
 - **Business**: Personalized fitness tracking, friend challenges, comprehensive workout library.
 
-## Installation
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/username/repository-name.git
-    ```
-2. Install dependencies for the server and client:
-    ```bash
-    cd repository-name
-    npm install
-    cd client
-    npm install
-    ```
-3. Run the app:
-    ```bash
-    cd ..
-    npm run dev
-    ```
-
 ## Contributing
-1. Fork the repository.
+1. Clone the Main Branch repository.
 2. Create a new branch (`git checkout -b feature-name`).
 3. Commit changes (`git commit -m "Add feature"`).
 4. Push to the branch (`git push origin feature-name`).
