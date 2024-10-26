@@ -12,7 +12,14 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+
+// Feature Website Homepage.
 import Home from "./pages/Home";
+
+// Feature User Logins -> Sign up & Login.
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+
 import "./index.css";
 
 
@@ -36,11 +43,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,           // Home page displayed at "/"
+        element: <Home />,             // Home page displayed at "/"
+      },
+      {
+        path: "/signup",
+        element: <Signup />,           // Sign Up feature displayed at "/" (Home)
+      },
+      {
+        path: "/login",
+        element: <Login />,           // Sign Up feature displayed at "/" (Home)
       },
       {
         path: "/records",
-        element: <RecordList />,     // RecordList page displayed at "/records"
+        element: <RecordList />,       // RecordList page displayed at "/records"
       },
     ],
   },
