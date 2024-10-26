@@ -7,6 +7,7 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+import Home from "./pages/Home";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RecordList />,
+        element: <Home />,           // Set Home as the default component for "/"
+      },
+      {
+        path: "/records",
+        element: <RecordList />,     // Add a route for RecordList under "/records"
       },
     ],
   },
@@ -41,6 +46,38 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <RecordList />,
+//       },
+//     ],
+//   },
+//   {
+//     path: "/edit/:id",
+//     element: <App />,
+//     children: [
+//       {
+//         path: "/edit/:id",
+//         element: <Record />,
+//       },
+//     ],
+//   },
+//   {
+//     path: "/create",
+//     element: <App />,
+//     children: [
+//       {
+//         path: "/create",
+//         element: <Record />,
+//       },
+//     ],
+//   },
+// ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
