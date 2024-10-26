@@ -1,0 +1,98 @@
+# Set Up
+
+This file will hopefully assist you in setting up your environemt and familirize yourself with MERN and the initial code.
+
+We'll use VSCODE for coding and use GITHUB for our source control. 
+
+The **main** branch will be protected. To add a feature, the team will create a new branch to work on that feature locally and will push their local branch to their remote branch on GITHUB. Once the feature is tested, and working with the rest of the code, we will merge it to main. 
+
+Please document your code and create a .md file that describes your feature and how it works.
+
+## Installation
+1. Install VSCODE:
+- Extensions:
+    - JavaScript (All official Microsoft extensions)
+    - React (All Official Microsoft extensions)
+    - MongoDb (Official MongoDB)
+ 
+Add other extensions you deem necessary. Its your local environment.
+
+2. Watch the following MERN Stack video to see and learn how it works:
+
+[The ULTIMATE MERN Stack Complete Guide (MongoDB, Express, React, Node.js)](https://youtu.be/4nKWREmCvsE?si=i_RXxHYYVxGCLxN8)
+
+The website that the video is made from is below. Also has the source code if you are incline on following the video along,
+
+[How to Use MERN Stack: A Complete Guide](https://www.mongodb.com/resources/languages/mern-stack-tutorial)
+
+NOTE: that at some point in the video, he uses MongoDB. 
+
+- Here is how you can setup your free version:
+
+[Create an Atlas Account](https://www.mongodb.com/docs/atlas/tutorial/create-atlas-account/)
+
+- If you are having issues, this Youtube video might help:
+
+[Setup MONGO DB ATLAS for a MERN STACK app in 2024](https://youtu.be/jmGgTPr8Kyw?si=N4tTRmQ1kxSCzFJg)
+
+Follow along the rest of the video
+
+**NOTE**: The source code in the video is wrong LOL. It took me a while to debug. The code on our branch is correct, follow "The How To" to run the program.
+
+# The How To
+
+If you cloned the the existing branch, I think its a great start for a user sign up page, use the "Ultimate MERN Stack Video" to make sure you
+have all the dependencies. 
+
+Additionally you will have to change some values on the server backend to match your mongodb username and password.
+
+```
+cd server/env
+
+```
+change username and password. 
+
+## Verify Connection with MongoDB
+
+In essence, on the backend **server** directory, you can check for a ping to MondoDB.
+
+```
+cd server/
+
+node server.js
+
+```
+
+It might take a couple of seconds, you will eventually see something like the YouTube video or something else. Ultimately, you want to see a message that it is listening to a port.
+
+## Visit the website
+
+After we established & verified connection with MongoDB, we will connect to the website.
+
+Run the following command to launch the client service
+
+```
+
+npm run dev
+
+```
+
+You should see the following: 
+
+```
+> client@0.0.0 dev
+> vite
+
+
+  VITE v5.4.10  ready in 2447 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+```
+Copy and paste **http://localhost:5173/** onto your favorite browser. 
+
+
+
+
