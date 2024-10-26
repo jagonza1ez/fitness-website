@@ -103,7 +103,6 @@ SSH keys allow you to connect to GitHub securely without needing to enter your u
 
 ---
 
-This setup ensures that developers have a secure and efficient connection to GitHub, enabling them to clone the repository, make changes, and push updates directly from VSCode. Let us know if you need any assistance with these steps!
 ```
 
-This version is formatted for a `README.md` and includes comprehensive setup instructions for VSCode and GitHub. Let me know if you need further adjustments!
+
