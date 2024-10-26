@@ -2,7 +2,21 @@
 
 This section will guide you through setting up Visual Studio Code (VSCode) to connect to GitHub so you can clone the repository, work on it locally, and push your changes back to GitHub.
 
-## Step 1: Setting Up GitHub SSH Keys (Optional but Recommended)
+If you can get the git extensions on vscode
+
+## Step 1: Set Up Git in VSCode
+
+1. **Configure Git**  
+   If you haven’t configured Git on your computer, run these commands in the VSCode terminal to set your username and email:
+   ```bash
+   git config --global user.name "Your GitHub Username"
+   git config --global user.email "your_email@example.com"
+   ```
+
+2. **Enable GitHub Authentication in VSCode**  
+   If you’re using HTTPS, VSCode may prompt you to sign in to GitHub the first time you push changes. Follow the prompts to complete GitHub authentication.
+
+## Step 2: Setting Up GitHub SSH Keys (Optional but Recommended)
 
 SSH keys allow you to connect to GitHub securely without needing to enter your username and password each time. Here’s how to set them up:
 
@@ -36,7 +50,7 @@ SSH keys allow you to connect to GitHub securely without needing to enter your u
    - Go to your [GitHub SSH settings](https://github.com/settings/keys) and click **New SSH key**.
    - Paste your SSH key, give it a title (e.g., “My Laptop”), and save.
 
-## Step 2: Clone the Repository Using VSCode
+## Step 3: Clone the Repository Using VSCode
 
 1. **Open VSCode**.
 2. **Open the Command Palette** by pressing `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac).
@@ -52,18 +66,6 @@ SSH keys allow you to connect to GitHub securely without needing to enter your u
      ```
 5. **Select a local folder** where you want to save the repository, and VSCode will clone it for you.
 6. **Open the cloned folder** in VSCode.
-
-## Step 3: Set Up Git in VSCode
-
-1. **Configure Git**  
-   If you haven’t configured Git on your computer, run these commands in the VSCode terminal to set your username and email:
-   ```bash
-   git config --global user.name "Your GitHub Username"
-   git config --global user.email "your_email@example.com"
-   ```
-
-2. **Enable GitHub Authentication in VSCode**  
-   If you’re using HTTPS, VSCode may prompt you to sign in to GitHub the first time you push changes. Follow the prompts to complete GitHub authentication.
 
 ## Step 4: Create and Work on Your Branch
 
@@ -102,7 +104,3 @@ SSH keys allow you to connect to GitHub securely without needing to enter your u
    After submitting the pull request, team members can review your changes, suggest improvements, and approve the merge when ready.
 
 ---
-
-```
-
-
