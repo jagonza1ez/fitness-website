@@ -24,3 +24,5 @@ frontend-dependencies.txt
 *.njsproj
 *.sln
 *.sw?
+
+.env
