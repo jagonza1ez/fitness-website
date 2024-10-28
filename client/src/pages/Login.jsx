@@ -5,27 +5,50 @@
 */
 
 import React, { useState } from 'react';
+// redirect to userHome page
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    // const response = await fetch('/auth/login', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(formData),
+    // });
+
+    try {
+      const response = await fetch('http://localhost:5050/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
     const data = await response.json();
+
+
     if (response.ok) {
+      // Store the token in local storage or context for future requests
       localStorage.setItem('token', data.token);
-      alert('Login successful');
+      setMessage(data.message);
+      setError(false);
+      navigate('/user-homepage'); // Redirect to user homepage on successful login
     } else {
-      alert(data.message);
+      setMessage(data.message || 'Login failed.');
+      setError(true);
     }
-  };
+  } catch (err) {
+    console.error('Error:', err);
+    setMessage('An error occurred. Please try again later.');
+    setError(true);
+  }
+};
 
   return (
     <div>

@@ -8,11 +8,14 @@
 */
 
 import React, { useState } from 'react';
+// redirects to userHome page
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ name: '', username: '', email: '', password: '' });
   const [message, setMessage] = useState(''); // For success or error messages
   const [error, setError] = useState(false);  // For handling error state
+  const navigate = useNavigate(); // Initialize navigate
 
   // Handle form input changes
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,6 +37,7 @@ const Signup = () => {
       if (response.ok) {
         setMessage(data.message); // Display success message
         setError(false); // Reset error state
+        navigate('/user-homepage'); // Redirect to user homepage on success
       } else {
         setMessage(data.message || 'Sign up failed.'); // Display error message
         setError(true); // Set error state
