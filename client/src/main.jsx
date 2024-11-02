@@ -18,7 +18,8 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import UserHomepage from './pages/UserHomepage';
-
+// Import the calendar component
+import WorkoutCalendar from './pages/WorkoutCalendar';
 import "./index.css";
 
 
@@ -55,7 +56,11 @@ const router = createBrowserRouter([
       { 
         path: '/user-homepage', 
         element: <UserHomepage />    // User homepage route
-      }, 
+      },
+      {
+        path: "/calendar",
+        element: <WorkoutCalendar /> 
+      },
       {
         path: "/records",
         element: <RecordList />,       // RecordList page displayed at "/records"

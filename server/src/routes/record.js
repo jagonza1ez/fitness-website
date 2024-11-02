@@ -1,134 +1,61 @@
-import express from "express";
+import express from "express";                           // Import Express for routing
 import { recordsCollection } from "../db/connection.js"; // Import records collection
-import { ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";                      // Import ObjectId for working with MongoDB document IDs
 
+// Initialize the router
 const router = express.Router();
 
 // Get All Records
+// This route handles fetching all documents from the records collection.
+// It retrieves the records and sends them in the response as JSON.
 router.get("/", async (req, res) => {
   try {
-    const results = await recordsCollection.find({}).toArray();
-    res.status(200).json(results);
+    const results = await recordsCollection.find({}).toArray();     // Retrieve all documents from the collection
+    res.status(200).json(results);                                  // Respond with a 200 status and the list of records
   } catch (err) {
-    console.error("Error fetching records:", err);
-    res.status(500).json({ message: "Error fetching records" });
+    console.error("Error fetching records:", err);                  // Log any errors for debugging
+    res.status(500).json({ message: "Error fetching records" });    // Respond with a 500 status for server errors
   }
 });
 
 // Get a Single Record by ID
+// This route fetches a single document by its unique MongoDB ID, using a dynamic parameter (:id).
+// If the document exists, it is returned; otherwise, a 404 status is sent.
 router.get("/:id", async (req, res) => {
   try {
-    const query = { _id: new ObjectId(req.params.id) };
-    const result = await recordsCollection.findOne(query);
-    if (!result) return res.status(404).json({ message: "Not found" });
-    res.status(200).json(result);
+    const query = { _id: new ObjectId(req.params.id) };                 // Create query with the ObjectId of the requested record
+    const result = await recordsCollection.findOne(query);              // Find the record in the database
+    if (!result) return res.status(404).json({ message: "Not found" }); // Respond with 404 if not found
+    res.status(200).json(result);                                       // Respond with a 200 status and the record data
   } catch (err) {
-    console.error("Error fetching record:", err);
-    res.status(500).json({ message: "Error fetching record" });
+    console.error("Error fetching record:", err);                       // Log any errors for debugging
+    res.status(500).json({ message: "Error fetching record" });         // Respond with a 500 status for server errors
   }
 });
 
 // Create New Record
+// This route handles the creation of a new record. It accepts data in the request body,
+// constructs a new document, and inserts it into the records collection.
 router.post("/", async (req, res) => {
   try {
+    // Construct a new document from request data
     const newDocument = {
       name: req.body.name,
       position: req.body.position,
       level: req.body.level,
     };
-    const result = await recordsCollection.insertOne(newDocument);
+    const result = await recordsCollection.insertOne(newDocument);       // Insert the new document into the collection
+    // Respond with a 201 status, a success message, and the ID of the new record
     res.status(201).json({ message: "Record created successfully", recordId: result.insertedId });
   } catch (err) {
-    console.error("Error adding record:", err);
-    res.status(500).json({ message: "Error adding record" });
+    console.error("Error adding record:", err);                // Log any errors for debugging
+    res.status(500).json({ message: "Error adding record" });  // Respond with a 500 status for server errors
   }
 });
 
 // Additional routes for updating and deleting records...
+//
+//
+
+// Export the router to be used in the main application
 export default router;
-
-
-// import express from "express";
-
-// // This will help us connect to the database
-// import db from "../db/connection.js";
-
-// // This help convert the id from string to ObjectId for the _id.
-// import { ObjectId } from "mongodb";
-
-// // router is an instance of the express router.
-// // We use it to define our routes.
-// // The router will be added as a middleware and will take control of requests starting with path /record.
-// const router = express.Router();
-
-// // This section will help you get a list of all the records.
-// router.get("/", async (req, res) => {
-//   let collection = await db.collection("records");
-//   let results = await collection.find({}).toArray();
-//   res.send(results).status(200);
-// });
-
-// // This section will help you get a single record by id
-// router.get("/:id", async (req, res) => {
-//   let collection = await db.collection("records");
-//   let query = { _id: new ObjectId(req.params.id) };
-//   let result = await collection.findOne(query);
-
-//   if (!result) res.send("Not found").status(404);
-//   else res.send(result).status(200);
-// });
-
-// // This section will help you create a new record.
-// router.post("/", async (req, res) => {
-//   try {
-//     let newDocument = {
-//       name: req.body.name,
-//       position: req.body.position,
-//       level: req.body.level,
-//     };
-//     let collection = await db.collection("records");
-//     let result = await collection.insertOne(newDocument);
-//     res.send(result).status(204);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Error adding record");
-//   }
-// });
-
-// // This section will help you update a record by id.
-// router.patch("/:id", async (req, res) => {
-//   try {
-//     const query = { _id: new ObjectId(req.params.id) };
-//     const updates = {
-//       $set: {
-//         name: req.body.name,
-//         position: req.body.position,
-//         level: req.body.level,
-//       },
-//     };
-
-//     let collection = await db.collection("records");
-//     let result = await collection.updateOne(query, updates);
-//     res.send(result).status(200);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Error updating record");
-//   }
-// });
-
-// // This section will help you delete a record
-// router.delete("/:id", async (req, res) => {
-//   try {
-//     const query = { _id: new ObjectId(req.params.id) };
-
-//     const collection = db.collection("records");
-//     let result = await collection.deleteOne(query);
-
-//     res.send(result).status(200);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Error deleting record");
-//   }
-// });
-
-// export default router;
