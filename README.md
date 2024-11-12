@@ -1,6 +1,6 @@
 # Fitness Tracker Web Application
 
-**Team Members**: Jesus Gonzalez, Matthew Goodman, Bill Tchiengue , Ty
+**Team Members**: Jesus Gonzalez, Matthew Goodman, Bill Tchiengue , Tyler Benotas, Marcelle Sandjong
 
 **Course**: UMGC CMSC 495 Section 7381  
 
