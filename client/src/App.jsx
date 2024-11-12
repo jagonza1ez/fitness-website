@@ -2,7 +2,7 @@
 * High-level layout component for the application. It includes a navigation bar (Navbar) 
 * and a placeholder (Outlet) for nested route components.
 */
-
+import React from 'react';
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
