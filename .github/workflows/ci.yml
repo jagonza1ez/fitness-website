@@ -2,7 +2,6 @@
 
 name: CI Pipeline for MERN Stack
 
-# Trigger the workflow on push and pull request to the main branch
 on:
   push:
     branches: [main]
@@ -10,46 +9,71 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  backend-tests:
     runs-on: ubuntu-latest
-
     services:
-      # MongoDB service for backend testing
       mongodb:
         image: mongo:latest
         ports:
           - 27017:27017
-
     env:
       MONGO_URI: mongodb://localhost:27017/testdb
-
     steps:
-      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18' # Use the Node version compatible with your project
+          node-version: '18'
 
-      # Step 3: Install and Test Backend (Node/Express API)
+      - name: Cache Backend Dependencies
+        uses: actions/cache@v2
+        with:
+          path: server/node_modules
+          key: ${{ runner.os }}-server-${{ hashFiles('**/server/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-server-
+
       - name: Install and Test Backend
         working-directory: ./server
         run: |
           npm install
-          npm test  # Replace with `npm run test` if that's the command
+          npm test
 
-      # Step 4: Install and Test Frontend (React App)
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Cache Frontend Dependencies
+        uses: actions/cache@v2
+        with:
+          path: client/node_modules
+          key: ${{ runner.os }}-client-${{ hashFiles('**/client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-client-
+
       - name: Install and Test Frontend
         working-directory: ./client
         run: |
           npm install
-          npm test  # Replace with `npm run test` if that's the command
+          npm test
 
-      # Optionally add a build step for the frontend if required
       - name: Build Frontend
         working-directory: ./client
-        run: |
-          npm run build
+        run: npm run build
+
+  deploy:
+    needs: [backend-tests, frontend-tests]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && success()
+    steps:
+      - name: Deploy Application
+        run: echo "Deploying application..." # Replace with actual deploy steps
