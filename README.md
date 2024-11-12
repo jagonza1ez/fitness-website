@@ -21,10 +21,10 @@ The app will be web-based and accessible on both desktop and mobile devices. Key
 - API Integration: REST APIs for workout and calorie data.
   
 ## Tech Stack
-- **Frontend**: React, HTML, CSS, JavaScript
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Hosting**: Deployed on a cloud provider like AWS or Firebase
+- **Frontend**: React, HTML, CSS, JavaScript.
+- **Backend**: Node.js, Express.
+- **Database**: MongoDB.
+- **Hosting**: Deployed on a cloud provider like AWS or Firebase.
 
 ## Requirements
 - **Functional**: User registration, workout logging, friend system, leaderboard, and profile management.
