@@ -1,3 +1,9 @@
+/**
+ * @file .babelrc
+ * @description Babel configuration file to define presets for compiling JavaScript and React (JSX) code.
+ *              It ensures compatibility with a wide range of environments and enables JSX support.
+ */
+
 {
     "presets": ["@babel/preset-env", "@babel/preset-react"]
   }
