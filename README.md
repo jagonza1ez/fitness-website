@@ -36,6 +36,7 @@ The app will be web-based and accessible on both desktop and mobile devices. Key
 3. Commit changes (`git commit -m "Add feature"`).
 4. Push to the branch (`git push origin feature-name`).
 5. Open a pull request.
+6. New branches will only be merged once it passes the CI/CD Pipeline.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
