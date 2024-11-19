@@ -1,5 +1,5 @@
 /**
- * @file Workoutcalendar.jsx
+ * @file WorkoutCalendar.jsx
  * @description Provides a React component for tracking and displaying workout 
  * dates using a calendar interface. Allows users to add workouts, view weekly and 
  * monthly workout stats, and interacts with the backend to fetch and save workout 
