@@ -1,0 +1,66 @@
+/* Home.css */
+
+/* Set the full-screen background */
+.home-container {
+    background-color: #1a202c; /* Tailwind's gray-900 */
+    color: white;
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Style the title */
+.home-title {
+    font-size: 3rem; /* Tailwind's text-5xl */
+    font-weight: 800; /* Tailwind's font-extrabold */
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.home-title span {
+    color: #34d399; /* Tailwind's green-400 */
+}
+
+/* Style the description */
+.home-description {
+    font-size: 1.25rem; /* Tailwind's text-lg */
+    color: #9ca3af; /* Tailwind's gray-400 */
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Style buttons */
+.home-button {
+    width: 12rem;
+    padding: 0.75rem;
+    font-size: 1rem; /* Tailwind's text-lg */
+    font-weight: 600; /* Tailwind's font-semibold */
+    border-radius: 0.5rem; /* Tailwind's rounded-lg */
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.home-button.signup {
+    background-color: #34d399; /* Tailwind's green-500 */
+    color: white;
+}
+
+.home-button.signup:hover {
+    background-color: #059669; /* Tailwind's green-600 */
+    transform: scale(1.05);
+}
+
+.home-button.login {
+    background-color: #3b82f6; /* Tailwind's blue-500 */
+    color: white;
+    margin-top: 1rem;
+}
+
+.home-button.login:hover {
+    background-color: #2563eb; /* Tailwind's blue-600 */
+    transform: scale(1.05);
+}
