@@ -1,7 +1,6 @@
 /**
  * @file jest.setup.js
  * @description Sets up Jest configurations for React component testing, adding custom matchers from Testing Library.
- *              This enhances Jest with improved DOM assertions, making it easier to verify UI component behavior.
  */
 
 // Import custom Jest matchers from @testing-library/jest-dom for assertions on DOM elements
@@ -17,5 +16,3 @@ export default {
       '^.+\\.[tj]sx?$': 'babel-jest',
     },
   };
-  
-  

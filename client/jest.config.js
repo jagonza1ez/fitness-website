@@ -9,15 +9,20 @@
 export default {
   // Specifies the test environment as 'jsdom' to simulate a web browser-like environment for DOM testing.
   testEnvironment: 'jest-environment-jsdom',
-  // Specifies files to be executed after Jest's environment setup. Loads jest.setup.js for custom configurations.
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'], // Loads jest.setup.js only
-  // Maps CSS and SCSS file imports to a mock object to avoid errors during tests, as Jest doesn’t natively handle styles.
+  
+  // Specifies files to be executed after Jest's environment setup.
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  
+  // Maps CSS and SCSS file imports to a mock object to avoid errors during tests.
   moduleNameMapper: {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
   },
-  // Transforms JavaScript and TypeScript files using Babel to ensure compatibility with JSX/TSX syntax in tests.
+  
+  // Transforms JavaScript and TypeScript files using Babel.
   transform: {
     '^.+\\.[tj]sx?$': 'babel-jest',
   },
+  
+  // Specifies where Jest should look for test files.
   testMatch: ['<rootDir>/src/tests/**/*.test.js'],
 };
