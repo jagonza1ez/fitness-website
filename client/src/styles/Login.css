@@ -1,0 +1,82 @@
+/* Login.css */
+
+/* Full-screen container for the login page */
+.login-container {
+    background-color: #1a202c; /* Tailwind's gray-900 */
+    color: white;
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Title styling */
+.login-title {
+    font-size: 2.5rem; /* Tailwind's text-4xl */
+    font-weight: 700; /* Tailwind's font-bold */
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #34d399; /* Tailwind's green-400 */
+}
+
+/* Form container */
+.login-form {
+    background-color: #2d3748; /* Tailwind's gray-800 */
+    padding: 2rem;
+    border-radius: 0.5rem; /* Tailwind's rounded-lg */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Tailwind's shadow-lg */
+    width: 100%;
+    max-width: 400px; /* Limit the form width */
+}
+
+/* Input fields styling */
+.login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #4a5568; /* Tailwind's gray-700 */
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    background-color: #1a202c; /* Tailwind's gray-900 */
+    color: white;
+    font-size: 1rem; /* Tailwind's text-lg */
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #34d399; /* Tailwind's green-400 */
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.5); /* Tailwind's ring */
+}
+
+/* Button styling */
+.login-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #34d399; /* Tailwind's green-400 */
+    color: white;
+    font-weight: 600; /* Tailwind's font-semibold */
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.login-form button:hover {
+    background-color: #059669; /* Tailwind's green-600 */
+    transform: scale(1.05);
+}
+
+/* Error and success messages */
+.login-message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.login-message.error {
+    color: #e53e3e; /* Tailwind's red-500 */
+}
+
+.login-message.success {
+    color: #34d399; /* Tailwind's green-400 */
+}
