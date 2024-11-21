@@ -1,0 +1,24 @@
+.workout-page {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .workout-header {
+    background: linear-gradient(to right, #7b1fa2, #ab47bc);
+  }
+  
+  .search-bar input {
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .categories .category-card {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .categories .category-card:hover {
+    transform: scale(1.05);
+    background: #f3e5f5;
+  }
+  
