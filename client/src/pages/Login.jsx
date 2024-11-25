@@ -19,28 +19,30 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5050/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5050/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
+  
       const data = await response.json();
+  
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        setMessage(data.message);
-        setError(false);
-        navigate('/user-homepage');
+        // Store token and user details in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/user-homepage");
       } else {
-        setMessage(data.message || 'Login failed.');
+        setMessage(data.message);
         setError(true);
       }
     } catch (err) {
-      console.error('Error:', err);
-      setMessage('An error occurred. Please try again later.');
+      console.error("Login error:", err);
+      setMessage("An error occurred. Please try again.");
       setError(true);
     }
   };
+  
 
   return (
     <div className="login-container">

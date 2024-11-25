@@ -49,32 +49,63 @@ router.post("/signup", async (req, res) => {
 // User Login Route
 // This route handles user login by validating credentials, comparing password hashes,
 // and generating a JWT token if credentials are valid.
+// router.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     // Find the user by email
+//     const user = await usersCollection.findOne({ email });
+//     if (!user) {
+//       console.log("User not found with email:", email);            // Debugging info for missing user
+//       return res.status(400).json({ message: "User not found" });  // Respond with 400 status if user is not found
+//     }
+
+//     // Verify the password by comparing provided password with the stored hashed password
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) {
+//       console.log("Invalid credentials for user:", email);              // Debugging info for invalid password
+//       return res.status(400).json({ message: "Invalid credentials" });  // Respond with 400 status for invalid credentials
+//     }
+
+//     // Generate a JWT token with user ID as the payload, setting expiration to 1 hour
+//     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+//     console.log("User logged in successfully:", email);     // Debugging info for successful login
+//     res.json({ token, message: "Login successful" });       // Send token and success message in response
+//   } catch (err) {
+//     console.error("Error during login:", err);              // Log errors for debugging
+//     res.status(500).json({ message: "Error logging in" });  // Send error response on server error
+//   }
+// });
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    // Find the user by email
     const user = await usersCollection.findOne({ email });
-    if (!user) {
-      console.log("User not found with email:", email);            // Debugging info for missing user
-      return res.status(400).json({ message: "User not found" });  // Respond with 400 status if user is not found
-    }
+    if (!user) return res.status(400).json({ message: "User not found" });
 
-    // Verify the password by comparing provided password with the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      console.log("Invalid credentials for user:", email);              // Debugging info for invalid password
-      return res.status(400).json({ message: "Invalid credentials" });  // Respond with 400 status for invalid credentials
-    }
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-    // Generate a JWT token with user ID as the payload, setting expiration to 1 hour
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    console.log("User logged in successfully:", email);     // Debugging info for successful login
-    res.json({ token, message: "Login successful" });       // Send token and success message in response
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        aboutMe: user.aboutMe || "No bio available",
+        profilePicture: user.profilePicture || "https://via.placeholder.com/150",
+      },
+    });
   } catch (err) {
-    console.error("Error during login:", err);              // Log errors for debugging
-    res.status(500).json({ message: "Error logging in" });  // Send error response on server error
+    console.error("Error during login:", err);
+    res.status(500).json({ message: "Error logging in" });
   }
 });
+
+
 
 // Export router to use in the main server file
 export default router;

@@ -4,6 +4,8 @@ import dotenv from "dotenv";                 // Importing dotenv to manage envir
 import records from "./routes/record.js";    // Importing route handler for employee-related requests
 import auth from "./routes/auth.js";         // Importing routes only
 import workouts from './routes/workouts.js'; // Importing workouts
+import upload from './routes/upload.js';     // Import the upload route for handling image uploads
+
 
 // Configure dotenv to load environment variables from .env file into process.env
 //dotenv.config(); // Default .env loading
@@ -24,6 +26,8 @@ app.use(express.json());            // Enable JSON body parsing for incoming req
 app.use("/record", records);        // Routes for handling employee-related operations (CRUD)
 app.use("/auth", auth);             // Routes for handling user authentication (login, registration, etc.)
 app.use('/api/workouts', workouts);
+app.use('/api/upload', upload);     // Add the upload route for Cloudinary
+
 
 // Start the Express server and listen on the defined port
 app.listen(PORT, () => {

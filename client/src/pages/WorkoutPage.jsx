@@ -83,10 +83,41 @@ const WorkoutPage = () => {
     setDetails({ time: "", distance: "", weight: "", sets: "", reps: "", stretchDuration: "" });
   };
 
-  const handleFinishWorkout = () => {
-    // Add logic to save the workout session to the database if needed
-    alert("Workout session completed!");
-    navigate("/user-homepage"); // Redirect to User Homepage
+  const handleFinishWorkout = async () => {
+    if (workoutLog.length === 0) {
+      alert("No workouts logged!");
+      return;
+    }
+  
+    const token = localStorage.getItem("token");
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+  
+    const payload = {
+      date: currentDateTime, // Use the formatted date-time from the state
+      workouts: workoutLog,
+    };
+  
+    try {
+      const response = await fetch("http://localhost:5050/api/workouts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      if (response.ok) {
+        alert("Workout session saved!");
+        navigate("/user-homepage");
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (err) {
+      console.error("Error saving workout:", err);
+      alert("An error occurred while saving the workout.");
+    }
   };
 
   return (
