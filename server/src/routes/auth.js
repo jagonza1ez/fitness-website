@@ -1,50 +1,97 @@
-/*
- * FEATURE - USER SIGN UP
- * This file is dedicated to handling user authentication, including user sign-up and login.
- * It includes:
- * - Database usage: Stores users in a dedicated 'users' collection rather than the 'employees' collection.
- * - Password security: Uses bcrypt to hash passwords before storing.
- * - Response structure: Provides a success message for signup and a JSON Web Token (JWT) for login.
- */
+import express from 'express'; // Import Express
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { usersCollection } from '../db/connection.js';
+import { ObjectId } from 'mongodb';
+import multer from 'multer';
+import cloudinary from '../db/cloudinary.js'; // Import Cloudinary configuration
 
-import express from "express";                         // Importing Express to create route handlers
-import bcrypt from "bcrypt";                           // Importing bcrypt for password hashing
-import jwt from "jsonwebtoken";                        // Importing JSON Web Token for secure user sessions
-import { usersCollection } from "../db/connection.js"; // Import users collection
+const router = express.Router(); // Initialize the router
 
-// Creating a router instance for authentication routes
-const router = express.Router();
+const storage = multer.diskStorage({});
+const upload = multer({ storage });
 
-// User Sign-Up Route
-// This route handles user registration by receiving user details, hashing the password, 
-// and saving the new user in the users collection.
-router.post("/signup", async (req, res) => {
-  const { name, username, email, password } = req.body;                 // Destructuring user data from request body
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+router.put('/profile-picture/:userId', upload.single('profilePicture'), async (req, res) => {
+  const { userId } = req.params;
+
   try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'user_profiles',
+    });
 
-    // Check if user already exists in the database by email
-    const existingUser = await usersCollection.findOne({ email });     
-    if (existingUser) {
-      console.log("User already exists with email:", email);           // Debugging info for duplicate user
-      return res.status(400).json({ message: "User already exists" }); // Respond with 400 status if user exists
+    const updateResult = await usersCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: { profilePicture: result.secure_url } }
+    );
+
+    if (updateResult.modifiedCount === 0) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // Hash the password for secure storage
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create the new user object with hashed password
-    const newUser = { name, username, email, password: hashedPassword };
-    // Insert new user into the database
-    const result = await usersCollection.insertOne(newUser); 
-
-    console.log("New user registered:", result); // Log the MongoDB result for debugging
-    // Send success message
-    res.status(201).json({ message: "User registered successfully", userId: result.insertedId });
-  } catch (err) {
-    console.error("Error during signup:", err);
-    res.status(500).json({ message: "Error signing up" });
+    res.status(200).json({
+      message: 'Profile picture updated successfully',
+      profilePicture: result.secure_url,
+    });
+  } catch (error) {
+    console.error('Error uploading profile picture:', error);
+    res.status(500).json({ message: 'Error uploading profile picture' });
   }
 });
+
+// /*
+//  * FEATURE - USER SIGN UP
+//  * This file is dedicated to handling user authentication, including user sign-up and login.
+//  * It includes:
+//  * - Database usage: Stores users in a dedicated 'users' collection rather than the 'employees' collection.
+//  * - Password security: Uses bcrypt to hash passwords before storing.
+//  * - Response structure: Provides a success message for signup and a JSON Web Token (JWT) for login.
+//  */
+
+// import express from "express";                         // Importing Express to create route handlers
+// import bcrypt from "bcrypt";                           // Importing bcrypt for password hashing
+// import jwt from "jsonwebtoken";                        // Importing JSON Web Token for secure user sessions
+// import { usersCollection } from "../db/connection.js"; // Import users collection
+
+// // Creating a router instance for authentication routes
+// const router = express.Router();
+
+// // User Sign-Up Route
+// // This route handles user registration by receiving user details, hashing the password, 
+// // and saving the new user in the users collection.
+// router.post("/signup", async (req, res) => {
+//   const { name, username, email, password } = req.body;                 // Destructuring user data from request body
+//   try {
+
+//     // Check if user already exists in the database by email
+//     const existingUser = await usersCollection.findOne({ email });     
+//     if (existingUser) {
+//       console.log("User already exists with email:", email);           // Debugging info for duplicate user
+//       return res.status(400).json({ message: "User already exists" }); // Respond with 400 status if user exists
+//     }
+
+//     // Hash the password for secure storage
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Create the new user object with hashed password
+//     const newUser = { name, username, email, password: hashedPassword };
+//     // Insert new user into the database
+//     const result = await usersCollection.insertOne(newUser); 
+
+//     console.log("New user registered:", result); // Log the MongoDB result for debugging
+//     // Send success message
+//     res.status(201).json({ message: "User registered successfully", userId: result.insertedId });
+//   } catch (err) {
+//     console.error("Error during signup:", err);
+//     res.status(500).json({ message: "Error signing up" });
+//   }
+// });
 
 // User Login Route
 // This route handles user login by validating credentials, comparing password hashes,
@@ -104,8 +151,6 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Error logging in" });
   }
 });
-
-
 
 // Export router to use in the main server file
 export default router;
