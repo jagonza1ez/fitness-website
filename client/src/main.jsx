@@ -14,6 +14,7 @@ import UserHomepage from "./pages/UserHomepage"; // User homepage after login
 import WorkoutCalendar from "./pages/WorkoutCalendar"; // Workout calendar for tracking workouts
 import WorkoutPage from "./pages/WorkoutPage"; // New workout page for exercises
 import ProtectedRoute from "./components/ProtectedRoute"; // ProtectedRoute component
+import AddFriends from "./pages/AddFriends"; // Import the new page
 import "./index.css"; // Global styles
 
 /**
@@ -61,6 +62,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/add-friends", // Route for Add Friends page
+        element: (
+          <ProtectedRoute>
+            <AddFriends />
+          </ProtectedRoute>
+        ),
+      },     
     ],
   },
 ]);

@@ -43,7 +43,7 @@ const UserHomepage = () => {
     }
   };
 
-  const addFriend = () => alert('Feature not yet implemented: Add Friend');
+  const addFriend = () => navigate("/add-friends");
   const viewFriends = () => alert('Feature not yet implemented: View Friends');
 
   return (
