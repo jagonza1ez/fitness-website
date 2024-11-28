@@ -67,6 +67,7 @@ router.post("/login", async (req, res) => {
         email: user.email,
         aboutMe: user.aboutMe || "No bio available",
         profilePicture: user.profilePicture || "https://via.placeholder.com/150",
+        friends: user.friends || [], // Include friends array here
       },
     });
   } catch (err) {
@@ -89,26 +90,17 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/add-friend", async (req, res) => {
-  const { userId, friendId } = req.body;
-
+router.get('/api/friends/:userId', async (req, res) => {
   try {
-    // Add friendId to the user's friends list
-    await usersCollection.updateOne(
-      { _id: new ObjectId(userId) },
-      { $addToSet: { friends: new ObjectId(friendId) } } // Prevent duplicates
-    );
-
-    // Add userId to the friend's friends list (optional for mutual friends)
-    await usersCollection.updateOne(
-      { _id: new ObjectId(friendId) },
-      { $addToSet: { friends: new ObjectId(userId) } }
-    );
-
-    res.status(200).json({ message: "Friend added successfully" });
+    const userId = req.params.userId;
+    const user = await User.findById(userId).populate('friends'); // Populate friends field
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ friends: user.friends });
   } catch (error) {
-    console.error("Error adding friend:", error);
-    res.status(500).json({ message: "Error adding friend" });
+    console.error('Error fetching friends:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
