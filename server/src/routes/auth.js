@@ -91,18 +91,70 @@ router.get("/users", async (req, res) => {
 });
 
 router.get('/api/friends/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  if (!ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid userId." });
+  }
+
   try {
-    const userId = req.params.userId;
-    const user = await User.findById(userId).populate('friends'); // Populate friends field
+    const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found." });
     }
-    res.status(200).json({ friends: user.friends });
+
+    // Fetch friends' details
+    const friends = await usersCollection
+      .find({ _id: { $in: user.friends } })
+      .toArray();
+
+    res.status(200).json({ friends });
   } catch (error) {
-    console.error('Error fetching friends:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error fetching friends:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 });
+
+
+router.post("/add-friend", async (req, res) => {
+  const { userId, friendId } = req.body;
+
+  if (!userId || !friendId) {
+    return res.status(400).json({ message: "Missing userId or friendId." });
+  }
+
+  try {
+    // Find the user and the friend by their IDs
+    const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+    const friend = await usersCollection.findOne({ _id: new ObjectId(friendId) });
+
+    if (!user || !friend) {
+      return res.status(404).json({ message: "User or friend not found." });
+    }
+
+    // Check if they are already friends
+    if (user.friends && user.friends.includes(friendId)) {
+      return res.status(400).json({ message: "Already friends." });
+    }
+
+    // Add the friend to the user's friends list
+    const result = await usersCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $addToSet: { friends: friendId } } // Prevent duplicate entries
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(500).json({ message: "Failed to add friend." });
+    }
+
+    res.status(200).json({ message: "Friend added successfully." });
+  } catch (error) {
+    console.error("Error adding friend:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
 
 // Export router to use in the main server file
 export default router;
