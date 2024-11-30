@@ -12,6 +12,7 @@ import Signup from "./pages/Signup"; // Sign up page
 import Login from "./pages/Login"; // Login page
 import UserHomepage from "./pages/UserHomepage"; // User homepage after login
 import WorkoutCalendar from "./pages/WorkoutCalendar"; // Workout calendar for tracking workouts
+import AdvancedWorkoutCalendar from "./pages/AdvancedWorkoutCalendar"; // New calendar using react-big-calendar
 import WorkoutPage from "./pages/WorkoutPage"; // New workout page for exercises
 import ProtectedRoute from "./components/ProtectedRoute"; // ProtectedRoute component
 import AddFriends from "./pages/AddFriends"; // Import the new page
@@ -55,6 +56,15 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/advanced-calendar",
+        element: (
+          <ProtectedRoute>
+            <AdvancedWorkoutCalendar />
+          </ProtectedRoute>
+        ),
+      },
+      
       {
         path: "/workout", // New workout page for exercises
         element: (
