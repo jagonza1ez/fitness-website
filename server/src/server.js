@@ -8,7 +8,7 @@ import upload from './routes/upload.js';     // Import the upload route for hand
 
 
 // Configure dotenv to load environment variables from .env file into process.env
-//dotenv.config(); // Default .env loading
+dotenv.config(); // Default .env loading
 console.log("Environment Variables:", process.env);
 
 // Define the port on which the server will listen
