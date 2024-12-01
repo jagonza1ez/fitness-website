@@ -1,0 +1,74 @@
+.type-btn {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #e5e7eb;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .type-btn.active {
+    background-color: #4caf50;
+    color: white;
+  }
+  .workout-btn {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #e5e7eb;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .workout-btn.active {
+    background-color: #3b82f6;
+    color: white;
+  }
+  .input {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  .btn-submit {
+    background-color: #18571a;
+    color: rgb(32, 23, 112);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  .saved-workouts {
+    color: #000000; /* Black font for the entire section */
+  }
+  
+  .saved-workouts h5 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .saved-workouts ul {
+    margin-left: 1rem; /* Add some indentation for details */
+    list-style-type: disc; /* Optional: Add bullet points */
+  }
+  
+  .saved-workouts li {
+    margin-bottom: 0.25rem; /* Add spacing between items */
+  }
+  
+  /* General styling for headers in CalendarPopUpWindow */
+h4 {
+    color: #000; /* Set font color to black */
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Add spacing */
+  }
+  
+  /* Specific styling for the headers */
+  .workout-type-buttons h4,
+  .exercise-details-form h4 {
+    color: #000; /* Ensure headers within specific sections are black */
+  }
