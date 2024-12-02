@@ -17,6 +17,7 @@ import WorkoutPage from "./pages/WorkoutPage"; // New workout page for exercises
 import ProtectedRoute from "./components/ProtectedRoute"; // ProtectedRoute component
 import AddFriends from "./pages/AddFriends"; // Import the new page
 import ViewFriends from './pages/ViewFriends'; // Import View Friends Page
+import LeagueOfFitness from "./pages/LeagueOfFitness";
 import "./index.css"; // Global styles
 
 /**
@@ -88,7 +89,15 @@ const router = createBrowserRouter([
             <ViewFriends />
           </ProtectedRoute>
         ),
-      },   
+      },
+      {
+        path: '/league-of-fitness', // Add View Friends route
+        element: (
+          <ProtectedRoute>
+            <LeagueOfFitness  />
+          </ProtectedRoute>
+        ),
+      },      
     ],
   },
 ]);
