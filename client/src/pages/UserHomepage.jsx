@@ -70,6 +70,7 @@ const UserHomepage = () => {
 
   const addFriend = () => navigate('/add-friends');
   const viewFriends = () => navigate('/view-friends');
+  const AdvancedWorkoutCalendar = () => navigate('/advanced-calendar');
 
 
   return (
@@ -132,6 +133,14 @@ const UserHomepage = () => {
         >
           Go to Workout Page
         </button>
+        
+        <button
+          onClick={() => navigate('/advanced-calendar')}
+          className="btn-calendar bg-green-600 hover:bg-green-700 px-6 py-2 rounded-md"
+        >
+          Go to Advanced Calendar
+        </button>
+
         <button
           onClick={handleLogout}
           className="btn-logout bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md"

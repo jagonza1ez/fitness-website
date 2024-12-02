@@ -1,0 +1,130 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* Calendar Wrapper */
+.calendar-wrapper {
+  background-color: #ffffff; /* White background */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 1rem; /* Space around the calendar */
+  width: 100%;
+  max-width: 900px; /* Limit max width */
+  margin: 0 auto; /* Center the calendar horizontally */
+}
+
+/* Calendar Header */
+.rbc-header {
+  background-color: #f3f4f6; /* Light gray for day headers */
+  color: #000000; /* Black text */
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e5e7eb; /* Subtle border */
+}
+
+/* Calendar Date Cells */
+.rbc-date-cell {
+  color: #000000; /* Black text for date numbers */
+}
+
+/* Highlight Today's Date */
+.rbc-today {
+  background-color: #e5f3e5; /* Light green for today highlight */
+}
+
+/* Calendar Event Styles */
+.rbc-event {
+  background-color: #4c51bf; /* Indigo color */
+  color: #ffffff; /* White text */
+  border-radius: 0.25rem; /* Rounded corners */
+  padding: 0.25rem; /* Inner padding */
+  font-size: 0.875rem; /* Small text */
+}
+
+/* Toolbar Styling */
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between; /* Space navigation buttons and center the month label */
+  align-items: center;
+  font-size: 1.25rem; /* Larger font size */
+  margin-bottom: 1rem; /* Add spacing below the toolbar */
+}
+
+.rbc-toolbar-label {
+  font-weight: bold; /* Bold for visibility */
+  color: #1f2937; /* Tailwind gray-900 for dark text */
+  font-size: 1.5rem; /* Larger font for prominence */
+}
+
+.rbc-toolbar button {
+  background-color: #e5e7eb; /* Light gray background */
+  color: #374151; /* Tailwind gray-700 for text */
+  border: 1px solid #d1d5db; /* Border for buttons */
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.5rem 1rem; /* Spacing */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #d1d5db; /* Darker gray on hover */
+}
+
+/* Back Button */
+button.back-btn {
+  background-color: #1b7c54; /* Indigo background */
+  color: #ffffff; /* White text */
+  border: none;
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.5rem 1rem;
+  font-size: 1rem; /* Font size */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button.back-btn:hover {
+  background-color: #3b49cc; /* Darker indigo on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Workout Stats Section */
+.stats-section {
+  background-color: #f9fafb; /* Light gray background */
+  color: #374151; /* Tailwind gray-700 for text */
+  padding: 1rem;
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-top: 1.5rem; /* Spacing from the calendar */
+}
+
+.stats-section h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1f2937; /* Dark text */
+  margin-bottom: 1rem;
+}
+
+.stats-section p {
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    padding: 0.5rem;
+  }
+
+  .stats-section {
+    padding: 0.75rem;
+  }
+
+  button.back-btn {
+    font-size: 0.875rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
