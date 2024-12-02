@@ -55,11 +55,11 @@ const AdvancedWorkoutCalendar = () => {
     setIsModalOpen(true);
   };
 
-  const handleAddEvent = () => {
-    const { title, startTime, endTime } = workoutDetails;
+  const handleAddEvent = async () => {
+    const { title, startTime, endTime, exercises } = workoutDetails;
     if (!title || !startTime || !endTime) {
-      alert("Please fill out the workout name, start time, and end time.");
-      return;
+        alert("Please fill out the workout name, start time, and end time.");
+        return;
     }
 
     const start = new Date(selectedDate);
@@ -70,13 +70,44 @@ const AdvancedWorkoutCalendar = () => {
     end.setHours(endHour, endMinute);
 
     if (end <= start) {
-      alert("End time must be after start time.");
-      return;
+        alert("End time must be after start time.");
+        return;
     }
 
-    setEvents([...events, { title, start, end }]);
-    setIsModalOpen(false);
-  };
+    const workoutData = {
+        date: selectedDate.toISOString().split("T")[0], // Format as YYYY-MM-DD
+        title,
+        startTime,
+        endTime,
+        exercises: workoutDetails.exercises || [],
+    };
+
+    try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:5050/api/workouts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(workoutData),
+        });
+
+        if (response.ok) {
+            alert("Workout saved successfully!");
+
+            // Add the newly saved workout to the calendar events
+            setEvents([...events, { title, start, end }]);
+            setIsModalOpen(false); // Close the modal after saving
+        } else {
+            const error = await response.json();
+            alert(error.message);
+        }
+    } catch (err) {
+        console.error("Error saving workout:", err);
+        alert("Failed to save workout.");
+    }
+};
 
   const handleViewChange = (date) => {
     setCurrentMonth(date.getMonth());
@@ -84,26 +115,72 @@ const AdvancedWorkoutCalendar = () => {
   };
 
   useEffect(() => {
-    const calculateStats = () => {
-      const startOfMonth = moment([currentYear, currentMonth]).startOf("month").toDate();
-      const endOfMonth = moment([currentYear, currentMonth]).endOf("month").toDate();
+    const fetchWorkouts = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("User not authenticated. Please log in again.");
+                return;
+            }
 
-      const startOfWeek = moment().startOf("week").toDate();
-      const endOfWeek = moment().endOf("week").toDate();
+            const response = await fetch("http://localhost:5050/api/workouts", {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token for authentication
+                },
+            });
 
-      const monthlyWorkouts = events.filter(
-        (event) => event.start >= startOfMonth && event.start <= endOfMonth
-      ).length;
+            if (response.ok) {
+                const data = await response.json();
 
-      const weeklyWorkouts = events.filter(
-        (event) => event.start >= startOfWeek && event.start <= endOfWeek
-      ).length;
+                // Map the fetched workout logs into the format required for the calendar
+                const fetchedEvents = data.workoutLogs.map((log) => ({
+                    title: log.title,
+                    start: new Date(`${log.date}T${log.startTime}`), // Combine date and startTime
+                    end: new Date(`${log.date}T${log.endTime}`),     // Combine date and endTime
+                }));
 
-      setStats({ monthly: monthlyWorkouts, weekly: weeklyWorkouts });
+                // Update the `events` state with the fetched workout logs
+                setEvents(fetchedEvents);
+            } else {
+                const error = await response.json();
+                console.error("Error fetching workouts:", error.message);
+            }
+        } catch (err) {
+            console.error("Error fetching workouts:", err);
+        }
     };
 
-    calculateStats();
-  }, [events, currentMonth, currentYear]);
+    fetchWorkouts(); // Fetch workouts when the component loads
+}, []);
+
+useEffect(() => {
+  const calculateStats = () => {
+    // Get the start and end of the current month
+    const startOfMonth = moment([currentYear, currentMonth]).startOf("month").toDate();
+    const endOfMonth = moment([currentYear, currentMonth]).endOf("month").toDate();
+
+    // Get the start and end of the current week
+    const now = new Date();
+    const startOfWeek = moment(now).startOf("week").toDate();
+    const endOfWeek = moment(now).endOf("week").toDate();
+
+    // Filter events for the current month
+    const monthlyWorkouts = events.filter(
+      (event) => event.start >= startOfMonth && event.start <= endOfMonth
+    ).length;
+
+    // Filter events for the current week
+    const weeklyWorkouts = events.filter(
+      (event) => event.start >= startOfWeek && event.start <= endOfWeek
+    ).length;
+
+    // Update stats
+    setStats({ monthly: monthlyWorkouts, weekly: weeklyWorkouts });
+  };
+
+  calculateStats();
+}, [events, currentMonth, currentYear]);
+
 
   return (
     <div className="bg-gray-900 text-white min-h-screen p-6">
@@ -126,7 +203,7 @@ const AdvancedWorkoutCalendar = () => {
           defaultView="month"
           onSelectSlot={handleSelectSlot}
           onNavigate={handleViewChange}
-        />
+      />
       </div>
 
       {isModalOpen && (
