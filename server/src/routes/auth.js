@@ -44,6 +44,48 @@ router.put('/profile-picture/:userId', upload.single('profilePicture'), async (r
     res.status(500).json({ message: 'Error uploading profile picture' });
   }
 });
+router.post("/signup", async (req, res) => {
+  const { name, username, email, password } = req.body;
+
+  // Validate incoming data
+  if (!name || !username || !email || !password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  try {
+    // Check if the email or username already exists
+    const existingUser = await usersCollection.findOne({
+      $or: [{ email }, { username }],
+    });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email or username already exists." });
+    }
+
+    // Hash the password before storing it
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insert the new user into the database
+    const newUser = {
+      name,
+      username,
+      email,
+      password: hashedPassword,
+      workoutLogs: [], // Initialize workoutLogs as an empty array
+      friends: [], // Initialize friends as an empty array
+    };
+
+    const result = await usersCollection.insertOne(newUser);
+
+    if (result.acknowledged) {
+      return res.status(201).json({ message: "User registered successfully." });
+    } else {
+      throw new Error("Failed to create user.");
+    }
+  } catch (error) {
+    console.error("Error during signup:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
