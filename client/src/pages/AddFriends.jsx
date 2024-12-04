@@ -12,7 +12,7 @@ const AddFriends = () => {
         const token = localStorage.getItem("token"); // Retrieve token for authorization
         const userId = JSON.parse(localStorage.getItem("user")).id; // Current user's ID
 
-        const response = await fetch(`http://localhost:5050/auth/users?userId=${userId}`, {
+        const response = await fetch(`http://localhost:5050/auth/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`, // Pass token for authenticated access
           },
