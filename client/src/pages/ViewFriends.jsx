@@ -16,12 +16,10 @@ const ViewFriends = () => {
         <p className="text-gray-400">This is the placeholder for the View Friends page.</p>
       </div>
       <div className="navigation mt-6">
-        <button
-          onClick={goBack}
-          className="btn-back bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md"
-        >
-          Go Back
-        </button>
+      {/* Back Button */}
+      <button onClick={() => navigate(-1)} className="back-btn">
+        Back
+      </button>
       </div>
     </div>
   );
