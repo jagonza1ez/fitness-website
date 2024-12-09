@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute"; // ProtectedRoute comp
 import AddFriends from "./pages/AddFriends"; // Import the new page
 import ViewFriends from './pages/ViewFriends'; // Import View Friends Page
 import LeagueOfFitness from "./pages/LeagueOfFitness";
+import LeagueOfFitness from "./pages/LeagueOfFitness";
 import "./index.css"; // Global styles
 
 /**

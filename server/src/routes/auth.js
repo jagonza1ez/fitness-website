@@ -143,6 +143,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
+
 router.get('/api/friends/:userId', async (req, res) => {
   const { userId } = req.params;
 
@@ -157,17 +158,23 @@ router.get('/api/friends/:userId', async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    // Fetch friends' details
-    const friends = await usersCollection
-      .find({ _id: { $in: user.friends } })
-      .toArray();
+    console.log("User's Friends Array:", user.friends);
 
+    // Convert string IDs to ObjectIds for querying
+    const friendObjectIds = user.friends.map(friendId => new ObjectId(friendId));
+
+    // Fetch friends' details
+    const friends = await usersCollection.find({ _id: { $in: friendObjectIds } }).toArray();
+
+    console.log("Friends Details from DB:", friends); // Debugging log
     res.status(200).json({ friends });
   } catch (error) {
     console.error("Error fetching friends:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 });
+
+
 
 
 router.post("/add-friend", async (req, res) => {
