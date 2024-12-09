@@ -1,0 +1,149 @@
+/* League of Fitness Page Styling */
+.league-container {
+    background-color: #1a202c; /* Dark gray background */
+    color: #ffffff; /* White text */
+    min-height: 100vh; /* Full screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .league-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fbbf24; /* Yellow text for the title */
+  }
+  
+  .loading-text,
+  .error-text,
+  .no-users-text {
+    font-size: 1.2rem;
+    color: #e53e3e; /* Red for error */
+    margin-bottom: 20px;
+  }
+  
+  .users-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .user-card {
+    background-color: #2d3748; /* Dark gray card */
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .user-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .user-username {
+    font-size: 1rem;
+    color: #a0aec0; /* Light gray */
+    margin-bottom: 10px;
+  }
+  
+  .workout-details h3 {
+    font-size: 1rem;
+    color: #fbbf24; /* Yellow for subtitle */
+    margin-bottom: 5px;
+  }
+  
+  .workout-details p {
+    font-size: 0.9rem;
+    color: #cbd5e0; /* Light gray text */
+  }
+  
+  .btn-back {
+    background-color: #4299e1; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-back:hover {
+    background-color: #3182ce; /* Darker blue on hover */
+  }
+  
+  .leader-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+  }
+  
+  .leader-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fbbf24; /* Gold color for the title */
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow for text */
+  }
+  
+  .leader-card {
+    display: inline-block;
+    text-align: center;
+    background: linear-gradient(135deg, #1e3a8a, #2563eb); /* Gradient background */
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Glow effect */
+    border: 3px solid #fbbf24; /* Gold border for emphasis */
+  }
+  
+  .leader-profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 4px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow around the picture */
+  }
+  
+  .leader-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  
+  .leader-username {
+    font-size: 1.25rem;
+    color: #9ca3af; /* Subtle gray for the username */
+    margin-bottom: 1rem;
+  }
+  
+  .leader-workouts {
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  .leader-tagline {
+    font-size: 1rem;
+    color: #e5e7eb; /* Subtle light gray for the tagline */
+    font-style: italic;
+  }
+  

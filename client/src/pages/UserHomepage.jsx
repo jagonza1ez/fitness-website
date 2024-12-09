@@ -9,6 +9,7 @@ const UserHomepage = () => {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
 
   const goToWorkoutPage = () => navigate('/workout');
+  const goToLeagueOfFitness = () => navigate('/league-of-fitness');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -105,6 +106,13 @@ const UserHomepage = () => {
           Go to Advanced Calendar
         </button>
         <button
+          onClick={goToLeagueOfFitness}
+          className="btn-league bg-yellow-600 hover:bg-yellow-700 px-6 py-2 rounded-md"
+        >
+          League of Fitness
+        </button>
+
+        <button
           onClick={handleLogout}
           className="btn-logout bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md"
         >
@@ -116,3 +124,4 @@ const UserHomepage = () => {
 };
 
 export default UserHomepage;
+
