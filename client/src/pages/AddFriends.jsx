@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 import "../styles/AddFriends.css";
 
 const AddFriends = () => {
-  const navigate = useNavigate(); // Initialize navigation hook
+  const navigate = useNavigate(); // Initialize navigation hook.
   const [users, setUsers] = useState([]);       // Store the list of users
   const [loading, setLoading] = useState(true); // Track the loading state
   const [error, setError] = useState(null);     // Track any errors
