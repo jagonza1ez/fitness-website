@@ -61,6 +61,13 @@ router.post("/", authenticateUser, async (req, res) => {
       );
 
       console.log("Workout saved successfully for user:", req.userId);
+
+
+            // Trigger total workouts calculation
+      await fetch("http://localhost:5050/api/workouts/calculate-total-workouts", {
+            method: "POST",
+      });
+
       res.status(201).json({ message: "Workout saved successfully." });
   } catch (error) {
       console.error("Error saving workout:", error);
@@ -112,6 +119,84 @@ router.get("/stats", authenticateUser, async (req, res) => {
       res.status(500).json({ message: "Internal server error." });
   }
 });
+
+router.get("/user/:userId", async (req, res) => {
+    const { userId } = req.params;
+  
+    if (!ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid userId." });
+    }
+  
+    try {
+      const user = await usersCollection.findOne(
+        { _id: new ObjectId(userId) },
+        { projection: { workoutLogs: 1, name: 1, username: 1 } }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      return res.status(200).json({
+        workouts: user.workoutLogs || [],
+        name: user.name,
+        username: user.username,
+      });
+    } catch (error) {
+      console.error("Error fetching workouts:", error);
+      return res.status(500).json({ message: "Internal server error." });
+    }
+  });
+  
+/**
+ * Calculates the total number of workouts for all users
+ * and updates each user document with a `totalWorkouts` field.
+ */
+router.post("/update-total-workouts", async (req, res) => {
+    try {
+      // Fetch all users
+      const users = await usersCollection.find({}).toArray();
+  
+      // Iterate through each user and calculate total workouts
+      for (const user of users) {
+        const totalWorkouts = user.workoutLogs ? user.workoutLogs.length : 0;
+  
+        // Update the user document with the totalWorkouts field
+        await usersCollection.updateOne(
+          { _id: user._id },
+          { $set: { totalWorkouts } }
+        );
+      }
+  
+      res.status(200).json({ message: "Total workouts updated successfully for all users." });
+    } catch (error) {
+      console.error("Error updating total workouts:", error);
+      res.status(500).json({ message: "Failed to update total workouts.", error });
+    }
+  });
+  
+  router.post("/calculate-total-workouts", async (req, res) => {
+    try {
+      // Update all users to include the totalWorkouts field
+      const result = await usersCollection.updateMany(
+        {}, // Match all users
+        [
+          {
+            $set: {
+              totalWorkouts: { $size: { $ifNull: ["$workoutLogs", []] } }
+            }
+          }
+        ]
+      );
+  
+      res.status(200).json({ message: "Total workouts updated successfully.", modifiedCount: result.modifiedCount });
+    } catch (error) {
+      console.error("Error calculating total workouts:", error);
+      res.status(500).json({ message: "Failed to calculate total workouts.", error });
+    }
+  });
+  
+
 
 export default router;
 
