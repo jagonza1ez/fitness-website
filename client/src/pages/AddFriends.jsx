@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 import "../styles/AddFriends.css";
 
 const AddFriends = () => {
-  const navigate = useNavigate(); // Initialize navigation hook
+  const navigate = useNavigate(); // Initialize navigation hook.
   const [users, setUsers] = useState([]);       // Store the list of users
   const [loading, setLoading] = useState(true); // Track the loading state
   const [error, setError] = useState(null);     // Track any errors
@@ -54,6 +54,9 @@ const AddFriends = () => {
       if (!response.ok) {
         throw new Error("Failed to add friend.");
       }
+
+      // Remove the added friend from the `users` list
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== friendId));
 
       alert("Friend added successfully!");
     } catch (err) {

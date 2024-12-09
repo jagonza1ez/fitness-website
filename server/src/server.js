@@ -17,6 +17,8 @@ const PORT = process.env.PORT || 5050;
 // Initialize the Express application
 const app = express();
 
+// const workouts = require("./routes/workouts.js");
+
 // Middleware configuration
 app.use(cors());                    // Enable CORS to allow cross-origin requests from front-end applications
 app.use(express.json());            // Enable JSON body parsing for incoming requests

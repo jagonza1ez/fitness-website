@@ -10,7 +10,7 @@
   }
   .type-btn.active {
     background-color: #4caf50;
-    color: white;
+    color: rgb(22, 21, 21);
   }
   .workout-btn {
     padding: 0.5rem 1rem;
@@ -24,7 +24,7 @@
   }
   .workout-btn.active {
     background-color: #3b82f6;
-    color: white;
+    color: rgb(11, 12, 105);
   }
   .input {
     display: block;
@@ -72,3 +72,13 @@ h4 {
   .exercise-details-form h4 {
     color: #000; /* Ensure headers within specific sections are black */
   }
+
+  .input {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    color: #000; /* This sets the text color inside the input field to black */
+}

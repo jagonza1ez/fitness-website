@@ -126,22 +126,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get('/users/:userId', async (req, res) => {
-  const { userId } = req.params;
+router.get("/users", async (req, res) => {
+  const { userId, includeSelf } = req.query;
 
   try {
-    const user = await usersCollection.findOne(
-      { _id: new ObjectId(userId) },
-      { projection: { name: 1, username: 1, profilePicture: 1 } } // Include necessary fields only
-    );
+    const query = includeSelf === "true" 
+      ? {} // Include all users including the current user
+      : { _id: { $ne: new ObjectId(userId) } }; // Exclude the current user
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
+    const users = await usersCollection.find(query).toArray();
 
-    res.status(200).json(user);
+    res.status(200).json(users);
   } catch (error) {
-    console.error("Error fetching user details:", error);
+    console.error("Error fetching users:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 });

@@ -9,7 +9,7 @@ const UserHomepage = () => {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
 
   const goToWorkoutPage = () => navigate('/workout');
-  const goToLeagueOfFitness = () => navigate('/league-of-fitness');
+  const goToLeagueOfFitness = () => navigate('/league-of-fitness'); // Navigate to League of Fitness
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -107,11 +107,10 @@ const UserHomepage = () => {
         </button>
         <button
           onClick={goToLeagueOfFitness}
-          className="btn-league bg-yellow-600 hover:bg-yellow-700 px-6 py-2 rounded-md"
+          className="btn-league bg-teal-600 hover:bg-teal-700 px-6 py-2 rounded-md"
         >
-          League of Fitness
+          Go to League of Fitness
         </button>
-
         <button
           onClick={handleLogout}
           className="btn-logout bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md"
@@ -124,4 +123,3 @@ const UserHomepage = () => {
 };
 
 export default UserHomepage;
-
